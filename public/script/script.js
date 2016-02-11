@@ -11,7 +11,8 @@ var brand 		= $('#product_brand'),
 	photo 		= $('#product_photo');
 
 var constant = {
-	'API' : 'http://192.168.3.63/laravel/'
+	// 'API' : 'http://192.168.3.63/laravel/'
+	'API' : 'http://localhost/laravel/'
 }
 
 function getCategory(){
@@ -112,7 +113,13 @@ function resetForm(){
 	photo_file = '';
 }
 
+function preload(){
+	$('.layer-loading').append('<div class="outer"><img src="assets/images/preload.gif"><br/>LOADING...</div>')
+}
+preload()
+
 function saveProduct(){
+	$('.form-wrapper').addClass('layer-loading')
 	var formdata = new FormData();
 	formdata.append('product_code', $('#product_code').val())
 	formdata.append('product_brand', $('#product_brand').val())
@@ -133,9 +140,11 @@ function saveProduct(){
 		processData: false,
         contentType: false,
 		success:function(data){
+			$('.form-wrapper').removeClass('layer-loading')
 			resetForm()
 		},
 		error:function(status){
+			$('.form-wrapper').removeClass('layer-loading')
 			console.log('error')
 		}
 	})
