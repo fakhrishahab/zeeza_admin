@@ -119,10 +119,13 @@ button.btn-cancel{
 
 	input, select, textarea{
 		padding:5px;
+		width:100%;
+		min-width:150px;
+		max-width:250px;
 	}
 
 	textarea{
-		max-height:80px;
+		max-height:50px;
 	}
 
 	div{

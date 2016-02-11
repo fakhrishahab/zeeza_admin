@@ -169,10 +169,13 @@ button:disabled, button.btn-cancel {
   vertical-align: top; }
 
 .form-wrapper input, .form-wrapper select, .form-wrapper textarea {
-  padding: 5px; }
+  padding: 5px;
+  width: 100%;
+  min-width: 150px;
+  max-width: 250px; }
 
 .form-wrapper textarea {
-  max-height: 80px; }
+  max-height: 50px; }
 
 .form-wrapper div {
   padding: 5px 0; }

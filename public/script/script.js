@@ -56,7 +56,6 @@ getCategory();
 getSize();
 
 category.on('change', function(){
-	console.log($(this).val())
 	$.ajax({
 		method : 'GET',
 		url : constant.API+'type/'+$(this).val(),
