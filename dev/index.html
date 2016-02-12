@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>Zeeza Admin Page</title>
+		<base href="http://localhost/zeeza_admin/public/"/>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	    <meta name="description" content="Demo project with jQuery">
@@ -12,7 +13,7 @@
 	</head>
 	<body>
 		<header>
-			<div class="logo-header"><img src="./assets/images/logo_zeeza.png" height="50" alt=""></div>
+			<div class="logo-header"><a href=""><img src="./assets/images/logo_zeeza.png" height="50" alt=""></a></div>
 			<div class="menu-head">
 				<ul>
 					<li>Hi, Zeeza Admin</li>
@@ -23,87 +24,25 @@
 
 		<nav>
 			<ul>
-				<li><a href="">Product</a></li>
-				<li><a href="">Category</a></li>
-				<li><a href="">Type</a></li>
-				<li><a href="">Content</a></li>
+				<li><a>Product</a>
+					<ul>
+						<li><a href="product">List Product</a></li>
+						<li><a href="product_add">Add Product</a></li>
+					</ul>
+				</li>
+				<li><a href="category" id="click">Category</a></li>
+				<li><a href="type">Type</a></li>
+				<li><a href="content">Content</a></li>
 			</ul>
 		</nav>
 
-		<section class="content-wrapper">
-			<div>
-				<button>Add New Product</button>
-				<button class="btn-cancel">Cancel</button>
-			</div>
-			<div class="grid-container">
-				<div class="row">
-					<div class="grid-col-6 grid-col-sm-12">						
-						<h3 class="push-tb">ADD NEW PRODUCT</h3>
-						<div class="form-wrapper">
-							<div>
-								<label for="">brand</label>
-								<select name="product_brand" id="product_brand">
-									<option value="">---</option>
-								</select>
-							</div>
-							<div>
-								<label for="">code</label>
-								<input type="text" name="product_code" id="product_code" disabled>	
-							</div>
-							<div>
-								<label for="">product name</label>
-								<input type="text" name="product_name" id="product_name">	
-							</div>
-							<div>
-								<label for="">category</label>
-								<select name="product_category" id="product_category">
-									<option value="">---</option>
-								</select>
-							</div>
-							<div>
-								<label for="">type</label>
-								<select name="product_type" id="product_type">
-									<option value="">---</option>
-								</select>
-							</div>
-							<div>
-								<label for="">size</label>
-								<select name="product_size" id="product_size">
-									<option value="">---</option>
-								</select>
-							</div>
-							<div>
-								<label for="">description</label>
-								<textarea name="product_desc" id="product_desc" cols="30" rows="10"></textarea>
-							</div>
-							<div>
-								<label for="">normal price</label>
-								<input type="text" name="price" id="price">
-							</div>
-							<div>
-								<label for="">discount price</label>
-								<input type="text" name="price_disc" id="price_disc">
-							</div>
-							<div>
-								<label for="">reseller price</label>
-								<input type="text" name="price_reseller" id="price_reseller">
-							</div>
-							<div>
-								<label for="">photo</label>
-								<input type="file" name="product_photo" id="product_photo">	
-							</div>
-							<div>
-								<button id="btn_save_product" onClick="saveProduct()">Save</button>
-								<button class="btn-cancel">Cancel</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+		<div id='zee-view'>
+			
+		</div>
 	</body>
 	
 	<!--<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>-->
 	<script src="./script/jquery.min.js"></script>
-	<script src="./script/script.js"></script>
+
+	<script src="./script/route.js"></script>
 </html>

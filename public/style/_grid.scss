@@ -1,13 +1,13 @@
 .grid-container{
 	box-sizing: border-box; 
-	max-width:1200px;
+	max-width:100%;
 }
 
 .row:before, 
 .row:after {
     content:"";
     display: table ;
-     clear:both;
+    clear:both;
 }
 
 div[class*=grid-col-]{

@@ -17,7 +17,7 @@ gulp.task('assets', function(){
 })
 
 gulp.task('html', function(){
-	return gulp.src('./dev/*.html')
+	return gulp.src('./dev/**/*.html')
 	.pipe(gulp.dest('public'))
 })
 
