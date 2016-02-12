@@ -73,25 +73,28 @@ $(window).on('hashchange load', function(e){
 	route('category', {
 		template : 'category.html',
 		script : [
-			'script.js'
+			'app/category.js'
+		]
+	})
+
+	route('type', {
+		template : 'type.html',
+		script : [
+			'app/type.js'
+		]
+	})
+
+	route('brand', {
+		template : 'brand.html',
+		script : [
+			'app/brand.js'
+		]
+	})
+
+	route('size', {
+		template : 'size.html',
+		script : [
+			'app/size.js'
 		]
 	})
 })
-
-
-
-
-
-// route('', function(data){
-// 	_cookies.putObject('fakhri', {name:'fakhri',class:'tes'}, 10)
-// 	// console.log(_cookies.getObject('fakhri').name)
-// // var s = document.createElement("script");
-// // s.type = "text/javascript";
-// // s.src = "./script/ test.js";
-// // console.log(s)
-// // $("head").append(s);
-// })
-
-// route('product', function(data, param){
-// 	console.log(param)
-// })

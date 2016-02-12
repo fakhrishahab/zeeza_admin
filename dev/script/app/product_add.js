@@ -14,7 +14,7 @@ $(document).ready(function(){
 	function getCategory(){
 		$.ajax({
 			method : 'GET',
-			url : constant.API+'category',
+			url : constant.API+'category/view',
 			success:function(data){
 				for(var i=0; i < data.length; i++){
 					category.append('<option value='+data[i].id_category+'>'+data[i].name+'</option>')	;
@@ -41,7 +41,7 @@ $(document).ready(function(){
 	function getBrand(){
 		$.ajax({
 			method : 'GET',
-			url : constant.API+'brand',
+			url : constant.API+'brand/view',
 			success:function(data){
 				for(var i=0; i < data.length; i++){
 					brand.append('<option value='+data[i].id+' data-code='+data[i].code+'>'+data[i].name+'</option>')	;
@@ -57,7 +57,7 @@ $(document).ready(function(){
 	category.on('change', function(){
 		$.ajax({
 			method : 'GET',
-			url : constant.API+'type/'+$(this).val(),
+			url : constant.API+'type/view?id='+$(this).val(),
 			success:function(data){
 				type.empty()
 				type.append('<option value="">---</option>')
@@ -133,7 +133,7 @@ $(document).ready(function(){
 
 		$.ajax({
 			method : 'POST',
-			url : constant.API+'product',
+			url : constant.API+'product/create',
 			data : formdata,
 			processData: false,
 	        contentType: false,

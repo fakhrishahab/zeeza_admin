@@ -152,7 +152,8 @@ nav ul li ul {
   width: 150px; }
 
 nav ul li ul li {
-  display: block; }
+  display: block;
+  width: 100%; }
 
 section {
   float: left;
