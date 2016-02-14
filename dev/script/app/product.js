@@ -32,6 +32,11 @@ var get_data = function(limit, offset, id){
 
 get_data(limit, offset);
 
+$('#btn-refresh').on('click', function(){
+	get_data(limit, offset)
+	$('#input-search').val('')
+})
+
 function check_pagination(opened_data){
 	$('button#btn-prev').prop('disabled', true)
 	if(opened_data >= total_data){
@@ -47,14 +52,15 @@ function check_pagination(opened_data){
 $('button#btn-next').on('click', function(){
 	index_page += 1;
 	var new_offset = index_page * limit;
-	get_data(limit, new_offset, 'next');
+	get_data(limit, new_offset);
 })
 
 $('button#btn-prev').on('click', function(){
 	index_page -= 1;
 	var new_offset = index_page * limit;
-	get_data(limit, new_offset, 'prev');
+	get_data(limit, new_offset);
 })
+
 $('#btn-search').prop('disabled', true);
 $('#input-search').on('keyup', function(){
 	if($(this).val() != ''){

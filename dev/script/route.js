@@ -1,6 +1,6 @@
 var constant = {
 	// 'API' : 'http://192.168.3.63/laravel/'
-	'API' : 'http://localhost/laravel/'
+	'API' : 'http://localhost/zeeza_api/'
 }
 function $param(name, url) {
     if (!url) url = window.location.href;
@@ -95,6 +95,13 @@ $(window).on('hashchange load', function(e){
 		template : 'size.html',
 		script : [
 			'app/size.js'
+		]
+	})
+
+	route('menu', {
+		template : 'menu.html',
+		script : [
+			'app/menu.js'
 		]
 	})
 })
