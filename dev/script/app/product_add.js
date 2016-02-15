@@ -1,3 +1,4 @@
+var form_type = 'save', product_detail;
 $(document).ready(function(){
 	var brand 		= $('#product_brand'),
 		category 	= $('#product_category'),
@@ -5,19 +6,47 @@ $(document).ready(function(){
 		size 		= $('#product_size'),
 		code		= $('#product_code'),
 		name 		= $('#product_name'),
-		description = $('#description'),
+		description = $('#product_desc'),
 		price 		= $('#price'),
 		price_disc  = $('#price_disc'),
 		price_reseller = $('#price_reseller'),
 		photo 		= $('#product_photo');	
 
+	if($params('id') != null){		
+		form_type = 'edit';
+
+		$.ajax({
+			type:'GET',
+			url:constant.API+'product/detail?id='+$params('id'),
+			async:false,
+			success:function(data){
+				console.log(data)
+				product_detail = data;
+				code.val(data[0].code);
+				name.val(data[0].name);
+				description.html(data[0].description);
+				price.val(data[0].price);
+				price_disc.val(data[0].price_disc);
+				price_reseller.val(data[0].price_reseller);
+				brand.prop('disabled', true)
+			},
+			error:function(status){
+				console.log('error')
+			}
+		})
+	}
+
 	function getCategory(){
 		$.ajax({
 			method : 'GET',
 			url : constant.API+'category/view',
+			async:false,
 			success:function(data){
 				for(var i=0; i < data.length; i++){
 					category.append('<option value='+data[i].id_category+'>'+data[i].name+'</option>')	;
+					if(form_type == 'edit'){
+						category.val(product_detail[0].category);
+					}
 				}
 			},
 			error:function(){
@@ -30,9 +59,13 @@ $(document).ready(function(){
 		$.ajax({
 			method : 'GET',
 			url : constant.API+'size',
+			async:false,
 			success:function(data){
 				for(var i=0; i < data.length; i++){
-					size.append('<option value='+data[i].id_age+'>'+data[i].name+'</option>')	;
+					size.append('<option value='+data[i].id_age+'>'+data[i].name+'</option>');
+					if(form_type == 'edit'){
+						size.val(product_detail[0].age);
+					}
 				}
 			}
 		})	
@@ -42,9 +75,13 @@ $(document).ready(function(){
 		$.ajax({
 			method : 'GET',
 			url : constant.API+'brand/view',
+			async:false,
 			success:function(data){
 				for(var i=0; i < data.length; i++){
-					brand.append('<option value='+data[i].id+' data-code='+data[i].code+'>'+data[i].name+'</option>')	;
+					brand.append('<option value='+data[i].id+' data-code='+data[i].code+'>'+data[i].name+'</option>');
+					if(form_type == 'edit'){
+						brand.val(product_detail[0].brand);
+					}
 				}
 			}
 		})
@@ -54,20 +91,34 @@ $(document).ready(function(){
 	getCategory();
 	getSize();
 
-	category.on('change', function(){
+	function getType(cat){
 		$.ajax({
 			method : 'GET',
-			url : constant.API+'type/view?id='+$(this).val(),
+			url : constant.API+'type/view?id='+cat,
+			async:false,
 			success:function(data){
 				type.empty()
 				type.append('<option value="">---</option>')
 				for(var i=0; i < data.length; i++){
 					type.append('<option value='+data[i].id_type+'>'+data[i].name+'</option>');
+
+					if(form_type == 'edit'){
+						type.val(product_detail[0].type);
+					}
 				}
 				
 			}
 		})
+	}
+
+	if(form_type == 'edit'){
+		getType(product_detail[0].category);
+	}
+
+	category.on('change', function(){
+		getType($(this).val())
 	})
+
 	var photo_file;
 	photo.on('change', function(event){
 		photo_file = event.target.files
@@ -116,11 +167,20 @@ $(document).ready(function(){
 	}
 	preload()
 
-	function saveProduct(){
+	function saveProduct(form_type){
 		$('.form-wrapper').addClass('layer-loading')
 		var formdata = new FormData();
-		formdata.append('product_code', $('#product_code').val())
-		formdata.append('product_brand', $('#product_brand').val())
+		if(form_type != 'edit'){
+			formdata.append('product_code', $('#product_code').val())
+			formdata.append('product_brand', $('#product_brand').val())	
+			var link = constant.API+'product/create'
+			var method = 'POST'
+		}else{
+			link = constant.API+'product/edit'
+			formdata.append('id', product_detail[0].id)
+			method = 'PUT'
+		}
+		
 		formdata.append('name', $('#product_name').val())
 		formdata.append('category', $('#product_category').val())
 		formdata.append('type', $('#product_type').val())
@@ -132,9 +192,10 @@ $(document).ready(function(){
 		formdata.append('image', photo_file[0])
 
 		$.ajax({
-			method : 'POST',
-			url : constant.API+'product/create',
+			method : method,
+			url : link,
 			data : formdata,
+			dataType:'JSON',
 			processData: false,
 	        contentType: false,
 			success:function(data){
@@ -149,6 +210,6 @@ $(document).ready(function(){
 	}
 
 	$('#btn_save_product').on('click', function(){
-		saveProduct()
+		saveProduct(form_type)
 	})
 })

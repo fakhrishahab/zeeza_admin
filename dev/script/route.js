@@ -2,7 +2,7 @@ var constant = {
 	// 'API' : 'http://192.168.3.63/laravel/'
 	'API' : 'http://localhost/zeeza_api/'
 }
-function $param(name, url) {
+function $params(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
