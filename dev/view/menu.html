@@ -1,6 +1,6 @@
 <section class="content-wrapper">
 	<div>
-		<button onClick="window.location.hash='product_add'">Add New Category</button>
+		<button onClick="addMenu()">ADD MENU</button>
 	</div>
 	<div class="grid-container">
 		<div class="row">
@@ -15,6 +15,7 @@
 					</button>
 					<input type="text" placeholder="Search Code" id="input-search">
 					<button id="btn-search">Search</button>
+					<button id="btn-refresh">Refresh</button>
 				</div>
 				<table class="table">
 					<thead>
@@ -34,5 +35,13 @@
 		</div>
 	</div>
 </section>
+
+<script>
+	function addMenu(){
+		// console.log($params('id'))
+		window.location.hash='#menu_add?id_menu='+$params('id_menu')
+	}
+	
+</script>
 
 <!--<script src="./script/app/product.js"></script>-->

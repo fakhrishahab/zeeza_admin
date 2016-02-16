@@ -1,4 +1,11 @@
-var page = 0,limit=10,offset=0,opened=0,total=0, id_search;
+var page = 0,limit=10,offset=0,opened=0,total=0, name_search;
+
+$('#btn-refresh').on('click', function(){
+	name_search = ''
+	getBrand(limit, offset)
+	$('#input-search').val('')
+	$('#btn-search').prop('disabled', true);
+})
 	
 function getBrand(limit, offset, name){
 	if(name!=undefined){
@@ -32,7 +39,7 @@ function getBrand(limit, offset, name){
 
 function generateView(data){
 	for(var i=0; i < data.result.length; i++){
-		$('.table tbody').append("<tr><td>"+data.result[i].id+"</td><td>"+data.result[i].name+"</td>><td>"+data.result[i].code+"</td><td><button onClick=deleteBrand("+data.result[i].id+")>Delete</button> <a href='#brand_add?id="+data.result[i].id+"'><button>EDIT</button></td></tr>")
+		$('.table tbody').append("<tr><td>"+data.result[i].id+"</td><td>"+data.result[i].name+"</td>><td>"+data.result[i].code+"</td><td><button onClick=deleteBrand("+data.result[i].id+")>Delete</button> <a href='#brand_add?id="+data.result[i].id+"'><button>EDIT</button></a></td></tr>")
 	}
 }
 
@@ -83,12 +90,12 @@ function check_pagination(total){
 
 $('button#btn-next').on('click', function(){
 	page += 1;
-	getBrand(limit, limit*page, id_search)
+	getBrand(limit, limit*page, name_search)
 })
 
 $('button#btn-prev').on('click', function(){
 	page -= 1;
-	getBrand(limit, limit*page, id_search)
+	getBrand(limit, limit*page, name_search)
 })
 
 

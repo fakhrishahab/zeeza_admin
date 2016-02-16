@@ -119,10 +119,24 @@ $(window).on('hashchange load', function(e){
 		]
 	})
 
+	route('size_add', {
+		template : 'size_add.html',
+		script : [
+			'app/size_add.js'
+		]
+	})
+
 	route('menu', {
 		template : 'menu.html',
 		script : [
 			'app/menu.js'
+		]
+	})
+
+	route('menu_add', {
+		template : 'menu_add.html',
+		script : [
+			'app/menu_add.js'
 		]
 	})
 })

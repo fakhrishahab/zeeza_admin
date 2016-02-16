@@ -1,5 +1,12 @@
 var page = 0,limit=10,offset=0,opened=0,total=0, id_search;
-	
+
+$('#btn-refresh').on('click', function(){
+	id_search = ''
+	getType(limit, offset)
+	$('#input-search').val('')
+	$('#btn-search').prop('disabled', true);
+})
+
 function getType(limit, offset){
 	$.ajax({
 		method : 'GET',

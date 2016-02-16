@@ -1,5 +1,12 @@
 var page = 0,limit=10,offset=0,opened=0,total=0, id_search;
 
+$('#btn-refresh').on('click', function(){
+	id_search = ''
+	getCategory(limit, offset)
+	$('#input-search').val('')
+	$('#btn-search').prop('disabled', true);
+})
+
 function getCategory(limit, offset, id){
 	if(id!=undefined){
 		var link = constant.API+'admin_category?limit='+limit+'&offset='+offset+'&id='+id
