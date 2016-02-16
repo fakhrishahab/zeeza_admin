@@ -122,6 +122,7 @@ $(document).ready(function(){
 	var photo_file;
 	photo.on('change', function(event){
 		photo_file = event.target.files
+		console.log(photo_file)
 	})
 
 	brand.on('change', function(){
@@ -170,17 +171,16 @@ $(document).ready(function(){
 	function saveProduct(form_type){
 		$('.form-wrapper').addClass('layer-loading')
 		var formdata = new FormData();
-		if(form_type != 'edit'){
-			formdata.append('product_code', $('#product_code').val())
+		if(form_type != 'edit'){			
 			formdata.append('product_brand', $('#product_brand').val())	
 			var link = constant.API+'product/create'
 			var method = 'POST'
 		}else{
 			link = constant.API+'product/edit'
 			formdata.append('id', product_detail[0].id)
-			method = 'PUT'
+			method = 'POST'
 		}
-		
+		formdata.append('product_code', $('#product_code').val())
 		formdata.append('name', $('#product_name').val())
 		formdata.append('category', $('#product_category').val())
 		formdata.append('type', $('#product_type').val())
@@ -192,17 +192,29 @@ $(document).ready(function(){
 		formdata.append('image', photo_file[0])
 
 		$.ajax({
-			method : method,
+			type : method,
 			url : link,
 			data : formdata,
-			dataType:'JSON',
+			// dataType:'JSON',
+			contentType : false,
+			// headers:{
+			// 	'Content-Type' : 'application/json'
+			// },
 			processData: false,
-	        contentType: false,
 			success:function(data){
 				$('.form-wrapper').removeClass('layer-loading')
-				resetForm()
+				if(form_type =='edit'){
+					document.location.href="#product";
+				}else{
+					resetForm()	
+				}
+				
 			},
 			error:function(status){
+				if(status.status == 200){
+					// resetForm()
+				}
+				
 				$('.form-wrapper').removeClass('layer-loading')
 				console.log('error')
 			}

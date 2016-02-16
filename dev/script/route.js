@@ -77,6 +77,13 @@ $(window).on('hashchange load', function(e){
 		]
 	})
 
+	route('category_add', {
+		template : 'category_add.html',
+		script : [
+			'app/category_add.js'
+		]
+	})
+
 	route('type', {
 		template : 'type.html',
 		script : [
@@ -84,10 +91,24 @@ $(window).on('hashchange load', function(e){
 		]
 	})
 
+	route('type_add', {
+		template : 'type_add.html',
+		script : [
+			'app/type_add.js'
+		]
+	})
+
 	route('brand', {
 		template : 'brand.html',
 		script : [
 			'app/brand.js'
+		]
+	})
+
+	route('brand_add', {
+		template : 'brand_add.html',
+		script : [
+			'app/brand_add.js'
 		]
 	})
 

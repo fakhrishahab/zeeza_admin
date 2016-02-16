@@ -31,7 +31,30 @@ var get_data = function(limit, offset, id){
 function generateView(data){
 	$('.table tbody').empty();
 	for(var i=0; i <data.result.length; i++){
-		$('.table tbody').append("<tr><td>"+data.result[i].code+"</td><td>"+data.result[i].name+"</td><td>"+data.result[i].price+"</td><td><img src="+constant.API+"image?img="+data.result[i].code+" height=50></td><td><button>Delete</button>  <a href='#product_add?id="+data.result[i].id+"'><button>EDIT</button></a></td></tr>")
+		$('.table tbody').append("<tr><td>"+data.result[i].code+"</td><td>"+data.result[i].name+"</td><td>"+data.result[i].price+"</td><td><img src="+constant.API+"image?img="+data.result[i].code+" height=50></td><td><button onClick=deleteProduct("+data.result[i].id+",'"+data.result[i].code+"')>Delete</button>  <a href='#product_add?id="+data.result[i].id+"'><button>EDIT</button></a></td></tr>")
+	}	
+}
+
+function deleteProduct(id, code){
+	var conf = confirm('Are you sure want to delete this data')
+	if(conf == true){
+		$.ajax({
+			type:'DELETE',
+			url:constant.API+'product/delete',
+			data:{
+				'id' : id,
+				'code' : code
+			},
+			success:function(data){
+				get_data(limit, offset)
+			},
+			error:function(status){
+
+			}
+		})
+		
+	}else{
+		console.log('cancel')
 	}	
 }
 
