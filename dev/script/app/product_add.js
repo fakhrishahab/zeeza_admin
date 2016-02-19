@@ -12,6 +12,12 @@ $(document).ready(function(){
 		price_reseller = $('#price_reseller'),
 		photo 		= $('#product_photo');	
 
+price_disc.on('keyup', function(){
+	console.log('tes')
+	var discount = Math.round($(this).val() * 30/100);
+	price.val(parseInt($(this).val())+discount)
+})
+
 	if($params('id') != null){		
 		form_type = 'edit';
 
@@ -39,9 +45,10 @@ $(document).ready(function(){
 	function getCategory(){
 		$.ajax({
 			method : 'GET',
-			url : constant.API+'category/view',
+			url : constant.API+'admin_category',
 			async:false,
 			success:function(data){
+				console.log(data)
 				for(var i=0; i < data.length; i++){
 					category.append('<option value='+data[i].id_category+'>'+data[i].name+'</option>')	;
 					if(form_type == 'edit'){
@@ -189,7 +196,16 @@ $(document).ready(function(){
 		formdata.append('price', $('#price').val())
 		formdata.append('price_disc', $('#price_disc').val())
 		formdata.append('price_reseller', $('#price_reseller').val())
-		formdata.append('image', photo_file[0])
+		if(form_type=='edit'){
+			if(photo_file){
+				formdata.append('image', photo_file[0])
+			}else{
+				formdata.append('image', '')
+			}
+		}else{
+			formdata.append('image', photo_file[0])
+		}
+		
 
 		$.ajax({
 			type : method,

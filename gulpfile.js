@@ -1,7 +1,9 @@
 var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	sass = require('gulp-sass'),
-	del = require('del');
+	del = require('del'),
+	uglify = require('gulp-uglify'),
+	minify_css = require('gulp-minify-css');
 
 var defaultTasks = [
 	'assets',
@@ -23,6 +25,7 @@ gulp.task('html', function(){
 
 gulp.task('script', function(){
 	return gulp.src('./dev/script/**/*.*')
+	// .pipe(uglify())
 	.pipe(gulp.dest('public/script'))
 })
 
@@ -34,7 +37,8 @@ gulp.task('style_sass', function(){
 })
 
 gulp.task('style', function(){
-	return gulp.src('./dev/style/*css')
+	return gulp.src('./dev/style/*.css')
+		.pipe(minify_css())
 		.pipe(gulp.dest('public/style'))
 })
 
