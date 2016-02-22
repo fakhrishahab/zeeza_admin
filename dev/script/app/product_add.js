@@ -16,6 +16,10 @@ price_disc.on('keyup', function(){
 	var discount = Math.round($(this).val() * 30/100);
 	price.val(parseInt($(this).val())+discount)
 })
+getBrand();
+getCategory();
+getSize();
+getType();
 
 	if($params('id') != null){		
 		form_type = 'edit';
@@ -35,10 +39,12 @@ price_disc.on('keyup', function(){
 				price_reseller.val(data[0].price_reseller);
 				brand.prop('disabled', true)
 				// $('input[name=product_size][value=4]').prop('checked', true);
-				// for(var i=0; i< data[0].size.length; i++){					
-				// 	$('input[name=product_size][value='+data[0].size[i].id_age+']').prop('checked', true);
-				// 	console.log($('input[name=product_size][value='+data[0].size[i].id_age+']').remove())
-				// }
+				for(var i=0; i< data[0].size.length; i++){
+					$('input[name=product_size][value='+data[0].size[i].id_age+'], .size-list ul').prop('checked', true);
+				}
+				for(var i=0; i<data[0].type.length; i++){
+					$('input[name=product_type][value='+data[0].type[i].id_type+'], .category-list ul').prop('checked', true);
+				}
 			},
 			error:function(status){
 				console.log('error')
@@ -73,7 +79,7 @@ price_disc.on('keyup', function(){
 			async:false,
 			success:function(data){
 				for(var i=0; i < data.length; i++){
-					$('.size-list ul').append('<li><input type="checkbox" name="product_size" value='+data[i].id_age+'>'+data[i].name+'</li>')
+					$('.size-list ul').append('<li><input type="checkbox" name="product_size" id='+data[i].id_age+' value='+data[i].id_age+'>'+data[i].name+'</li>')
 					// size.append('<option value='+data[i].id_age+'>'+data[i].name+'</option>');
 					// if(form_type == 'edit'){
 					// 	size.val(product_detail[0].age);
@@ -99,9 +105,7 @@ price_disc.on('keyup', function(){
 		})
 	}
 
-	getBrand();
-	getCategory();
-	getSize();
+	
 
 	function getType(cat){
 		$.ajax({
@@ -122,8 +126,7 @@ price_disc.on('keyup', function(){
 				
 			}
 		})
-	}
-	getType();
+	}	
 
 	if(form_type == 'edit'){
 		// getType(product_detail[0].category);
@@ -240,7 +243,7 @@ price_disc.on('keyup', function(){
 			success:function(data){
 				$('.form-wrapper').removeClass('layer-loading')
 				if(form_type =='edit'){
-					// document.location.href="#product";
+					document.location.href="#product";
 				}else{
 					resetForm()	
 				}
