@@ -69,7 +69,8 @@ $('#btn-refresh').on('click', function(){
 function check_pagination(total){
 	var prev = $('button#btn-prev')
 	var next = $('button#btn-next')
-	var total_page = parseInt(total/limit);
+	var total_page = parseInt(total/limit)+1;
+	// console.log(total_page)
 
 	if(page <= 0){
 		if(total_page >= 1){
