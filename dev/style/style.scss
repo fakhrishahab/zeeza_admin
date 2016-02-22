@@ -216,3 +216,39 @@ tbody {
     vertical-align: middle;
     border-color: inherit;
 }
+
+.category-list, .size-list{
+	position:relative;
+	width:100%;
+}
+
+.category-list ul, .size-list ul{
+	position:relative;
+	width:100%;
+	box-sizing:border-box;
+	list-style:none;
+	padding:10px;
+	margin:0;
+	display:inline-block;
+	background:#ccc;
+
+
+	li{
+		display:inline;
+
+		&.title-list{
+			width:100%;
+			display:block;
+			text-transform:uppercase;
+			font-weight:bold;
+		}
+
+		input{
+			display:inline-block;
+			margin:0;
+			padding:0;
+			width:0;
+			min-width:20px;
+		}
+	}
+}

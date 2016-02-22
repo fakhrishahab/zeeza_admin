@@ -13,7 +13,6 @@ $(document).ready(function(){
 		photo 		= $('#product_photo');	
 
 price_disc.on('keyup', function(){
-	console.log('tes')
 	var discount = Math.round($(this).val() * 30/100);
 	price.val(parseInt($(this).val())+discount)
 })
@@ -35,6 +34,11 @@ price_disc.on('keyup', function(){
 				price_disc.val(data[0].price_disc);
 				price_reseller.val(data[0].price_reseller);
 				brand.prop('disabled', true)
+				// $('input[name=product_size][value=4]').prop('checked', true);
+				// for(var i=0; i< data[0].size.length; i++){					
+				// 	$('input[name=product_size][value='+data[0].size[i].id_age+']').prop('checked', true);
+				// 	console.log($('input[name=product_size][value='+data[0].size[i].id_age+']').remove())
+				// }
 			},
 			error:function(status){
 				console.log('error')
@@ -48,12 +52,12 @@ price_disc.on('keyup', function(){
 			url : constant.API+'admin_category',
 			async:false,
 			success:function(data){
-				console.log(data)
 				for(var i=0; i < data.length; i++){
-					category.append('<option value='+data[i].id_category+'>'+data[i].name+'</option>')	;
-					if(form_type == 'edit'){
-						category.val(product_detail[0].category);
-					}
+					$('.category-list').append('<ul id='+data[i].id_category+'><li class="title-list">'+data[i].name+'<li></ul>')
+					// category.append('<option value='+data[i].id_category+'>'+data[i].name+'</option>')	;
+					// if(form_type == 'edit'){
+					// 	category.val(product_detail[0].category);
+					// }
 				}
 			},
 			error:function(){
@@ -69,10 +73,11 @@ price_disc.on('keyup', function(){
 			async:false,
 			success:function(data){
 				for(var i=0; i < data.length; i++){
-					size.append('<option value='+data[i].id_age+'>'+data[i].name+'</option>');
-					if(form_type == 'edit'){
-						size.val(product_detail[0].age);
-					}
+					$('.size-list ul').append('<li><input type="checkbox" name="product_size" value='+data[i].id_age+'>'+data[i].name+'</li>')
+					// size.append('<option value='+data[i].id_age+'>'+data[i].name+'</option>');
+					// if(form_type == 'edit'){
+					// 	size.val(product_detail[0].age);
+					// }
 				}
 			}
 		})	
@@ -101,35 +106,50 @@ price_disc.on('keyup', function(){
 	function getType(cat){
 		$.ajax({
 			method : 'GET',
-			url : constant.API+'type/view?id='+cat,
+			url : constant.API+'type/view',
 			async:false,
 			success:function(data){
-				type.empty()
-				type.append('<option value="">---</option>')
 				for(var i=0; i < data.length; i++){
-					type.append('<option value='+data[i].id_type+'>'+data[i].name+'</option>');
+					// $('.category-list ul#'+data[i].id_category).empty()
+					$('.category-list ul#'+data[i].id_category).append('<li><input name="product_type" type="checkbox" value='+data[i].id_type+'>'+data[i].name+'</li>')
 
-					if(form_type == 'edit'){
-						type.val(product_detail[0].type);
-					}
+					// type.append('<option value='+data[i].id_type+'>'+data[i].name+'</option>');
+
+					// if(form_type == 'edit'){
+					// 	type.val(product_detail[0].type);
+					// }
 				}
 				
 			}
 		})
 	}
+	getType();
 
 	if(form_type == 'edit'){
-		getType(product_detail[0].category);
+		// getType(product_detail[0].category);
 	}
+	var type_arr=[], size_arr = [];
+	$('input[name=product_type]').on('click', function(){
+		if($(this).prop('checked') == true){
+			type_arr.push($(this).val())
+		}else{
+			var ind = _.indexOf(type_arr, $(this).val())
+			type_arr.splice(ind, 1);
+		}	
+	})
 
-	category.on('change', function(){
-		getType($(this).val())
+	$('input[name=product_size]').on('click', function(){
+		if($(this).prop('checked') == true){
+			size_arr.push($(this).val())
+		}else{
+			var ind = _.indexOf(size_arr, $(this).val())
+			size_arr.splice(ind, 1);
+		}	
 	})
 
 	var photo_file;
 	photo.on('change', function(event){
 		photo_file = event.target.files
-		console.log(photo_file)
 	})
 
 	brand.on('change', function(){
@@ -189,9 +209,9 @@ price_disc.on('keyup', function(){
 		}
 		formdata.append('product_code', $('#product_code').val())
 		formdata.append('name', $('#product_name').val())
-		formdata.append('category', $('#product_category').val())
-		formdata.append('type', $('#product_type').val())
-		formdata.append('age', $('#product_size').val())
+		// formdata.append('category', $('#product_category').val())
+		formdata.append('type', type_arr)
+		formdata.append('age', size_arr)
 		formdata.append('description', $('#product_desc').val())
 		formdata.append('price', $('#price').val())
 		formdata.append('price_disc', $('#price_disc').val())
@@ -220,7 +240,7 @@ price_disc.on('keyup', function(){
 			success:function(data){
 				$('.form-wrapper').removeClass('layer-loading')
 				if(form_type =='edit'){
-					document.location.href="#product";
+					// document.location.href="#product";
 				}else{
 					resetForm()	
 				}
