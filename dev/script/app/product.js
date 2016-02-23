@@ -2,9 +2,9 @@ var page = 0,limit=10,offset=0,opened=0,total=0, id_search;
 
 var get_data = function(limit, offset, id){
 	if(id!=undefined){
-		var link = constant.API+'admin_product?limit='+limit+'&offset='+offset+'&id='+id
+		var link = constant.API+'admin_product?access_token='+constant.ACCESS_TOKEN+'&limit='+limit+'&offset='+offset+'&id='+id
 	}else{
-		link =constant.API+'admin_product?limit='+limit+'&offset='+offset
+		link =constant.API+'admin_product?access_token='+constant.ACCESS_TOKEN+'&limit='+limit+'&offset='+offset
 	}
 	$.ajax({
 		method : 'GET',
@@ -43,7 +43,8 @@ function deleteProduct(id, code){
 			url:constant.API+'product/delete',
 			data:{
 				'id' : id,
-				'code' : code
+				'code' : code,
+				'access_token' : constant.ACCESS_TOKEN
 			},
 			success:function(data){
 				get_data(limit, offset)

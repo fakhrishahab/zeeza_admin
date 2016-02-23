@@ -9,9 +9,9 @@ $('#btn-refresh').on('click', function(){
 	
 function getBrand(limit, offset, name){
 	if(name!=undefined){
-		var link = constant.API+'admin_brand?limit='+limit+'&offset='+offset+'&name='+name
+		var link = constant.API+'admin_brand?access_token='+constant.ACCESS_TOKEN+'&limit='+limit+'&offset='+offset+'&name='+name
 	}else{
-		link = constant.API+'admin_brand?limit='+limit+'&offset='+offset
+		link = constant.API+'admin_brand?access_token='+constant.ACCESS_TOKEN+'&limit='+limit+'&offset='+offset
 	}
 	$.ajax({
 		method : 'GET',
@@ -51,7 +51,8 @@ function deleteBrand(id){
 			type:'DELETE',
 			url:constant.API+'admin_brand/delete',
 			data:{
-				'id' : id
+				'id' : id,
+				'access_token' : constant.ACCESS_TOKEN
 			},
 			success:function(data){
 				getBrand(limit, offset)

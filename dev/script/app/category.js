@@ -9,9 +9,9 @@ $('#btn-refresh').on('click', function(){
 
 function getCategory(limit, offset, id){
 	if(id!=undefined){
-		var link = constant.API+'admin_category?limit='+limit+'&offset='+offset+'&id='+id
+		var link = constant.API+'admin_category?access_token='+constant.ACCESS_TOKEN+'&limit='+limit+'&offset='+offset+'&id='+id
 	}else{
-		link = constant.API+'admin_category?limit='+limit+'&offset='+offset
+		link = constant.API+'admin_category?access_token='+constant.ACCESS_TOKEN+'&limit='+limit+'&offset='+offset
 	}
 	console.log(link)
 	$.ajax({
@@ -50,7 +50,8 @@ function deleteCategory(id){
 			type:'DELETE',
 			url:constant.API+'admin_category/delete',
 			data:{
-				'id' : id
+				'id' : id,
+				'access_token' : constant.ACCESS_TOKEN
 			},
 			success:function(data){
 				getCategory(limit, offset)

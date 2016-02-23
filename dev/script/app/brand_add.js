@@ -7,7 +7,7 @@ if($params('id')){
 	var form_type = 'edit'
 	$.ajax({
 		type:'GET',
-		url:constant.API+'admin_brand/detail?id='+id,
+		url:constant.API+'admin_brand/detail?access_token='+constant.ACCESS_TOKEN+'&id='+id,
 		success:function(data){
 			console.log(data)
 			$('#input_code').val(data[0].code)
@@ -35,7 +35,8 @@ function save_brand(){
 		data:{
 			'id' : id || '',
 			'code' : code.val(),
-			'name' : $('#input_name').val()
+			'name' : $('#input_name').val(),
+			'access_token' : constant.ACCESS_TOKEN
 		},
 		success:function(data){
 			console.log(data)

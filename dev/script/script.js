@@ -1,6 +1,7 @@
+console.log(constant)
 $.ajax({
 	method : 'GET',
-	url : constant.API+'admin_content/menu',
+	url : constant.API+'admin_content/menu?access_token='+constant.ACCESS_TOKEN,
 	success:function(data){
 		for(var i=0; i<data.length;i++){
 			$('#menu_content').append('<li><a href=#menu?id_menu='+data[i].id+'>'+data[i].name+'</a></li>')
@@ -9,4 +10,10 @@ $.ajax({
 	error:function(){
 
 	}
+})
+
+$('#btn-logout').on('click', function(){
+	_cookies.delete('_token');
+	_cookies.delete('user_info');
+	window.location.href='./login.html'
 })

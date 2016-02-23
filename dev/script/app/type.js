@@ -10,7 +10,7 @@ $('#btn-refresh').on('click', function(){
 function getType(limit, offset){
 	$.ajax({
 		method : 'GET',
-		url : constant.API+'admin_type?limit='+limit+'&offset='+offset,
+		url : constant.API+'admin_type?access_token='+constant.ACCESS_TOKEN+'&limit='+limit+'&offset='+offset,
 		success:function(data){
 			console.log(data.result)
 			total = data.count;
@@ -45,7 +45,8 @@ function deleteType(id){
 			type:'DELETE',
 			url:constant.API+'admin_type/delete',
 			data:{
-				'id' : id
+				'id' : id,
+				'access_token' :constant.ACCESS_TOKEN
 			},
 			success:function(data){
 				getType(limit, offset)

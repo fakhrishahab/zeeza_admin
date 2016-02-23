@@ -6,7 +6,7 @@ if($params('id')){
 	var form_type = 'edit'
 	$.ajax({
 		type:'GET',
-		url:constant.API+'admin_size/detail?id='+id,
+		url:constant.API+'admin_size/detail?access_token='+constant.ACCESS_TOKEN+'&id='+id,
 		success:function(data){
 			console.log(data)
 			$('#input_name').val(data[0].name)
@@ -32,7 +32,8 @@ function save_size(){
 		url:link,
 		data:{
 			'id' : id || '',
-			'name' : $('#input_name').val()
+			'name' : $('#input_name').val(),
+			'access_token' : constant.ACCESS_TOKEN
 		},
 		success:function(data){
 			console.log(data)

@@ -8,7 +8,7 @@ if($params('id')){
 	var form_type = 'edit'
 	$.ajax({
 		type:'GET',
-		url:constant.API+'admin_menu/detail?id='+id,
+		url:constant.API+'admin_menu/detail?access_token='+constant.ACCESS_TOKEN+'&id='+id,
 		success:function(data){
 			console.log(data)
 			$('#input_content').val(data[0].content)
@@ -37,7 +37,8 @@ function save_menu(){
 			'id' : id || '',
 			'menu' : menu,
 			'content' : content.val(),
-			'name' : $('#input_name').val()
+			'name' : $('#input_name').val(),
+			'access_token' : constant.ACCESS_TOKEN
 		},
 		success:function(data){
 			console.log(data)

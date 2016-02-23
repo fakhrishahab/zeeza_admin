@@ -1,4 +1,5 @@
 var form_type = 'save', product_detail;
+var type_arr=[], size_arr = [];
 $(document).ready(function(){
 	var brand 		= $('#product_brand'),
 		category 	= $('#product_category'),
@@ -16,7 +17,6 @@ price_disc.on('keyup', function(){
 	var discount = Math.round($(this).val() * 30/100);
 	price.val(parseInt($(this).val())+discount)
 })
-getBrand();
 getCategory();
 getSize();
 getType();
@@ -29,7 +29,7 @@ getType();
 			url:constant.API+'product/detail?id='+$params('id'),
 			async:false,
 			success:function(data){
-				console.log(data)
+				// console.log(data)
 				product_detail = data;
 				code.val(data[0].code);
 				name.val(data[0].name);
@@ -40,9 +40,11 @@ getType();
 				brand.prop('disabled', true)
 				// $('input[name=product_size][value=4]').prop('checked', true);
 				for(var i=0; i< data[0].size.length; i++){
+					size_arr.push(data[0].size[i].id_age.toString())
 					$('input[name=product_size][value='+data[0].size[i].id_age+'], .size-list ul').prop('checked', true);
 				}
 				for(var i=0; i<data[0].type.length; i++){
+					type_arr.push(data[0].type[i].id_type.toString())
 					$('input[name=product_type][value='+data[0].type[i].id_type+'], .category-list ul').prop('checked', true);
 				}
 			},
@@ -55,7 +57,7 @@ getType();
 	function getCategory(){
 		$.ajax({
 			method : 'GET',
-			url : constant.API+'admin_category',
+			url : constant.API+'admin_category?access_token='+constant.ACCESS_TOKEN,
 			async:false,
 			success:function(data){
 				for(var i=0; i < data.length; i++){
@@ -89,6 +91,7 @@ getType();
 		})	
 	}
 
+getBrand();
 	function getBrand(){
 		$.ajax({
 			method : 'GET',
@@ -131,7 +134,7 @@ getType();
 	if(form_type == 'edit'){
 		// getType(product_detail[0].category);
 	}
-	var type_arr=[], size_arr = [];
+	
 	$('input[name=product_type]').on('click', function(){
 		if($(this).prop('checked') == true){
 			type_arr.push($(this).val())

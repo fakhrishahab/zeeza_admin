@@ -1,7 +1,4 @@
-var constant = {
-	// 'API' : 'http://192.168.3.63/laravel/'
-	'API' : 'http://localhost/zeeza_api/'
-}
+
 function $params(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
@@ -18,7 +15,12 @@ $('a').on('click', function(e){
 	// history.pushState("", document.title, 'category');	
 })
 
-$(window).on('hashchange load', function(e){
+if(_cookies.getObject('user_info')){
+	$('#info-user').html('Hi, '+_cookies.getObject('user_info').name);	
+}
+
+
+$(window).on('hashchange load', function(e){	
 	function route(name, config){		
 		var base = $("base").prop("href");
 		var fullurl = document.location.href;
@@ -32,24 +34,28 @@ $(window).on('hashchange load', function(e){
 			end_point = end_point.split('?')[0]
 		}
 
-		if(end_point == name){
-			function getScript(){
-				var script = '';
-				if(config.script && config.script.length >= 1){
-					for(var i=0; i < config.script.length; i++){	
-						script += '<script src=./script/'+config.script[i]+'></script>'
+		if(constant.ACCESS_TOKEN){
+			if(end_point == name){
+				function getScript(){
+					var script = '';
+					if(config.script && config.script.length >= 1){
+						for(var i=0; i < config.script.length; i++){	
+							script += '<script src=./script/'+config.script[i]+'></script>'
+						}
+						return script;
+					}else{
+						return '';
 					}
-					return script;
-				}else{
-					return '';
 				}
-			}
 
-			$.get('view/'+config.template, function(data){	
-				$('div#zee-view').empty();
-				$('div#zee-view').append(data + getScript());
-			})
-		}	
+				$.get('view/'+config.template, function(data){	
+					$('div#zee-view').empty();
+					$('div#zee-view').append(data + getScript());
+				})
+			}
+		}else{
+			window.location.href="login.html"
+		}		
 	}
 
 	route('', {

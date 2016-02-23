@@ -8,7 +8,7 @@ if($params('id')){
 
 	$.ajax({
 		type:'GET',
-		url:constant.API+'admin_category/detail?id='+id,
+		url:constant.API+'admin_category/detail?access_token='+constant.ACCESS_TOKEN+'&id='+id,
 		success:function(data){
 			rank.val(data[0].rank)
 			$('#input_name').val(data[0].name)
@@ -35,7 +35,8 @@ function save_category(){
 		data:{
 			'id' : id || '',
 			'rank' : rank.val(),
-			'name' : $('#input_name').val()
+			'name' : $('#input_name').val(),
+			'access_token' : constant.ACCESS_TOKEN
 		},
 		success:function(data){
 			console.log(data)

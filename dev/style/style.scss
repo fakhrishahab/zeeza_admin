@@ -252,3 +252,32 @@ tbody {
 		}
 	}
 }
+
+.login-wrapper{
+	border:1px solid #ccc;
+	box-sizing:border-box;
+	width:400px;
+	padding:20px;
+	margin:0 auto;
+
+	input{
+		display:block;
+		width:100%;
+		border:1px solid #999;
+		background:none;
+		margin:10px 0;
+	}
+
+	.error-message{
+		width:100%;
+		border:1px solid red;
+		padding:10px;
+		box-sizing:border-box;
+		color:red;
+		background:#fbadad;
+	}
+}
+
+#btn-logout{
+	cursor:pointer;
+}

@@ -9,9 +9,9 @@ $('#btn-refresh').on('click', function(){
 
 function getMenu(limit, offset, name){
 	if(name!=undefined){
-		var link = constant.API+'admin_menu?id='+$params('id_menu')+'&limit='+limit+'&offset='+offset+'&name='+name
+		var link = constant.API+'admin_menu?access_token='+constant.ACCESS_TOKEN+'&id='+$params('id_menu')+'&limit='+limit+'&offset='+offset+'&name='+name
 	}else{
-		link = constant.API+'admin_menu?id='+$params('id_menu')+'&limit='+limit+'&offset='+offset
+		link = constant.API+'admin_menu?access_token='+constant.ACCESS_TOKEN+'&id='+$params('id_menu')+'&limit='+limit+'&offset='+offset
 	}
 
 	$.ajax({
@@ -52,7 +52,8 @@ function deleteMenu(id){
 			type:'DELETE',
 			url:constant.API+'admin_menu/delete',
 			data:{
-				'id' : id
+				'id' : id,
+				'access_token' : constant.ACCESS_TOKEN
 			},
 			success:function(data){
 				getMenu(limit, offset)

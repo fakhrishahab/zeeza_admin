@@ -9,7 +9,7 @@ if($params('id')){
 
 	$.ajax({
 		type:'GET',
-		url:constant.API+'admin_type/detail?id='+id,
+		url:constant.API+'admin_type/detail?access_token='+constant.ACCESS_TOKEN+'&id='+id,
 		success:function(data){
 			console.log(data)
 			$('#input_rank').val(data[0].rank)
@@ -26,7 +26,7 @@ if($params('id')){
 
 $.ajax({
 	type:'GET',
-	url:constant.API+'admin_category',
+	url:constant.API+'admin_category?access_token='+constant.ACCESS_TOKEN,
 	async:false,
 	success:function(data){
 		for(var i =0; i < data.length;i++){
@@ -53,7 +53,8 @@ function save_type(){
 			'id' : id || '',
 			'id_category' : category.val(),
 			'rank' : rank.val(),
-			'name' : $('#input_name').val()
+			'name' : $('#input_name').val(),
+			'access_token' : constant.ACCESS_TOKEN
 		},
 		success:function(data){
 			console.log(data)
