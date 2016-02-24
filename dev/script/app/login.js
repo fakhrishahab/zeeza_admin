@@ -8,7 +8,7 @@ $('#btn-login').on('click', function(){
 
 	wrapper.find('.error-message').remove();
 	$.ajax({
-		type:'POST',
+		method:'POST',
 		url:constant.API+'login',
 		data:{
 			'username' : username,
@@ -17,10 +17,10 @@ $('#btn-login').on('click', function(){
 		},
 		success:function(data){
 			console.log(data)
-			if(data.access_token){
-				_cookies.put('_token', data.access_token);
+			if(data.result){
+				_cookies.put('_token', data.result.access_token);
 				_cookies.putObject('user_info', data.user_info);
-				constant.ACCESS_TOKEN = data.access_token;
+				constant.ACCESS_TOKEN = data.result.access_token;
 				window.location.href="./";
 			}
 				
