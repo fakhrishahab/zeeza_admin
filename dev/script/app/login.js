@@ -18,7 +18,7 @@ $('#btn-login').on('click', function(){
 		success:function(data){
 			console.log(data)
 			if(data.result){
-				_cookies.put('_token', data.result.access_token);
+				_cookies.put('_token', data.result.access_token, data.result.expires_in);
 				_cookies.putObject('user_info', data.user_info);
 				constant.ACCESS_TOKEN = data.result.access_token;
 				window.location.href="./";

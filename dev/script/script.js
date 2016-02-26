@@ -1,4 +1,4 @@
-console.log(constant)
+// console.log(constant)
 $.ajax({
 	method : 'GET',
 	url : constant.API+'admin_content/menu?access_token='+constant.ACCESS_TOKEN,
@@ -12,8 +12,16 @@ $.ajax({
 	}
 })
 
-$('#btn-logout').on('click', function(){
+function destroySession(){
 	_cookies.delete('_token');
 	_cookies.delete('user_info');
 	window.location.href='./login.html'
+}
+
+$('#btn-logout').on('click', function(){
+	destroySession()
+})
+
+$(document).ajaxError(function(test){
+	destroySession()
 })
